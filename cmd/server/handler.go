@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"github.com/zakariawahyu/go-iris-news/config"
 	"github.com/zakariawahyu/go-iris-news/modules/content/controller"
+	"github.com/zakariawahyu/go-iris-news/utils/exception"
 	"log"
 )
 
@@ -19,9 +20,9 @@ func NewAppHandler(i *iris.Application) {
 	})
 }
 func NewHandler(cfg *config.Config, serv *Services) {
-	app := iris.Default()
+	app := iris.New()
 
-	app.UseError()
+	app.Use(exception.ErrorHandler)
 
 	NewAppHandler(app)
 	v1 := app.Party("/v1")

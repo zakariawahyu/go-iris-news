@@ -1,26 +1,27 @@
 package helpers
 
 import (
-	"net/http"
+	"github.com/kataras/iris/v12"
 )
 
 func GetStatusCode(err error) int {
+
 	if err == nil {
-		return http.StatusOK
+		return iris.StatusOK
 	}
 
 	switch err {
 	case ErrInternalServerError:
-		return http.StatusInternalServerError
+		return iris.StatusInternalServerError
 	case ErrNotFound:
-		return http.StatusNotFound
+		return iris.StatusNotFound
 	case ErrConflict:
-		return http.StatusConflict
+		return iris.StatusConflict
 	case ErrInvalidCredentials:
-		return http.StatusUnauthorized
+		return iris.StatusUnauthorized
 	case ErrUserIsNotActive:
-		return http.StatusUnauthorized
+		return iris.StatusUnauthorized
 	default:
-		return http.StatusInternalServerError
+		return iris.StatusInternalServerError
 	}
 }
