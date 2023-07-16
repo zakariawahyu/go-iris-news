@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"github.com/zakariawahyu/go-iris-news/config"
 	"github.com/zakariawahyu/go-iris-news/modules/content/controller"
-	"github.com/zakariawahyu/go-iris-news/utils/exception"
+	"github.com/zakariawahyu/go-iris-news/pkg/exception"
 	"log"
 )
 
@@ -23,11 +23,14 @@ func NewHandler(cfg *config.Config, serv *Services) {
 	app := iris.New()
 
 	app.Use(exception.ErrorHandler)
-
 	NewAppHandler(app)
-	v1 := app.Party("/v1")
 
-	controller.NewContentController(v1, serv.contentServices)
+	contentController := controller.NewContentController(serv.contentServices)
+
+	v2 := app.Party("/v2")
+
+	v2.Get("/news-row", contentController.NewsRowAll)
+	v2.Get("/news-row/:type/:key", contentController.NewsRowAll)
 
 	log.Fatal(app.Listen(viper.GetString("APP_ADDRESS")))
 }

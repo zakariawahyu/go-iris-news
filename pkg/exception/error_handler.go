@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/kataras/iris/v12"
-	"github.com/zakariawahyu/go-iris-news/helpers"
-	"github.com/zakariawahyu/go-iris-news/utils/response"
+	"github.com/zakariawahyu/go-iris-news/pkg/helpers"
+	"github.com/zakariawahyu/go-iris-news/pkg/response"
 )
 
 func ErrorHandler(ctx iris.Context) {

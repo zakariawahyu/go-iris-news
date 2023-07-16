@@ -1,22 +1,25 @@
 package entity
 
 type ContentHasTag struct {
-	ID        int64 `db:"id,primary" json:"id"`
-	TagID     int64 `db:"tag_id" json:"tag_id"`
-	Tag       *Tag  `ref:"tag_id" fk:"id" json:"tag"`
-	ContentID int64 `db:"content_id" json:"content_id"`
+	ID        int64    `bun:",pk"`
+	TagID     int64    `bun:",pk"`
+	Tag       *Tag     `bun:"rel:belongs-to,join:tag_id=id"`
+	ContentID int64    `bun:",pk"`
+	Content   *Content `bun:"rel:belongs-to,join:content_id=id"`
 }
 
 type ContentHasTopic struct {
-	ID        int64  `db:"id,primary" json:"id"`
-	TopicID   int64  `bun:"tag_id" json:"topic_id"`
-	Topic     *Topic `ref:"topic_id" fk:"id" json:"topic"`
-	ContentID int64  `db:"content_id" json:"content_id" json:"content_id"`
+	ID        int64    `bun:",pk"`
+	TopicID   int64    `bun:",pk"`
+	Topic     *Topic   `bun:"rel:belongs-to,join:topic_id=id"`
+	ContentID int64    `bun:",pk"`
+	Content   *Content `bun:"rel:belongs-to,join:content_id=id"`
 }
 
 type ContentHasReporter struct {
-	ID         int64     `db:"id,primary" json:"id"`
-	ReporterID int64     `db:"reporter_id" json:"reporter_id"`
-	Reporter   *Reporter `ref:"reporter_id" fk:"id" json:"reporter"`
-	ContentID  int64     `db:"content_id" json:"content_id"`
+	ID         int64     `bun:",pk"`
+	ReporterID int64     `bun:",pk"`
+	Reporter   *Reporter `bun:"rel:belongs-to,join:reporter_id=id"`
+	ContentID  int64     `bun:",pk"`
+	Content    *Content  `bun:"rel:belongs-to,join:content_id=id"`
 }
